@@ -1,0 +1,82 @@
+SELECT p.nev 
+FROM pizza p
+ORDER BY p.nev desc
+
+
+SELECT count(f.nev)
+FROM  futar f
+WHERE f.nev NOT LIKE 'G%'
+
+SELECT r.datum, sum(t.db)
+FROM  rendeles r, tetel t
+WHERE r.id = t.rendeles_id
+GROUP BY r.datum
+
+SELECT r.*
+FROM  rendeles r, tetel t
+WHERE r.id = t.rendeles_id AND r.ido<12
+
+SELECT round(AVG(p.ar),1) AS ATLAG
+FROM pizza p
+
+SELECT r.datum 'rendeles datum', v.id 'vevo ID', v.nev 'vevo nev'
+FROM rendeles r, vevo v
+WHERE r.vevo_id=v.id
+
+
+ALTER TABLE vevo
+ADD COLUMN telefon VARCHAR(9)
+
+INSERT INTO vevo (nev, cim, telefon)
+VALUES ('Akos', 'Nyul', '306557495')
+
+SELECT f.nev
+FROM futar f
+ORDER BY f.nev desc
+
+SELECT COUNT(v.nev)
+FROM vevo v
+WHERE v.nev NOT LIKE 'S%'
+
+SELECT r.datum, count(r.datum)
+FROM rendeles r
+GROUP BY r.datum
+
+SELECT r.id, r.ido
+FROM rendeles r
+WHERE r.ido>12
+
+SELECT round(avg(r.ido),1)  AS atlag
+FROM rendeles r
+
+SELECT r.id, r.datum, r.ido, v.id, v.nev
+FROM rendeles r, vevo v
+WHERE r.vevo_id=v.id
+
+alter TABLE futar
+ADD COLUMN szuletesi_ev INT(4)
+
+INSERT INTO futar
+VALUES (0, 'Mugli', '30696969', 1994)
+
+SELECT v.nev
+FROM vevo v
+ORDER BY v.nev desc
+
+SELECT round(AVG(t.db),1) AS atlag
+FROM rendeles r, tetel t
+
+SELECT round(AVG(belso_atlag),1) AS atlag FROM (SELECT AVG(t.db) AS belso_atlag
+FROM rendeles r, tetel t
+WHERE r.id = t.rendeles_id
+GROUP BY r.id) AS X
+
+
+SELECT r.id, v.id, v.nev
+FROM rendeles r,  vevo v
+WHERE r.vevo_id=v.id
+
+ALTER TABLE pizza
+add COLUMN atmero int(4)
+
+INSERT INTO pizza VALUES (0, 'New York', 1999, 32)

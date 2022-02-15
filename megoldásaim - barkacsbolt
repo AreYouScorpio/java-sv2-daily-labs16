@@ -1,0 +1,63 @@
+SELECT t.nev
+FROM termek t
+WHERE t.ar>1000
+
+SELECT COUNT(v.nev)
+FROM rendeles r, vasarlo v
+WHERE r.vasarlo_id = v.id AND v.nev='Morgó'
+
+
+SELECT r.id , v.nev AS UGYFEL
+FROM rendeles r, vasarlo v
+WHERE r.vasarlo_id = v.id
+
+SELECT MIN(t.ar) , t.nev, t.id
+FROM termek t
+
+SELECT t.id, t.nev, t.ar
+FROM termek t
+WHERE t.ar<1000
+
+
+SELECT COUNT(*)
+FROM rendeles r, vasarlo v
+WHERE v.nev='Szende' AND v.id = r.vasarlo_id
+
+SELECT r.*, e.nev as elado
+FROM rendeles r, elado e
+WHERE e.id = r.elado_id
+
+SELECT r.*
+FROM rendeles r
+WHERE r.ido>12
+
+SELECT t.nev, sum(db.db)
+FROM termek t, tetel db
+WHERE t.id=db.termek_id
+GROUP BY t.nev
+
+SELECT r.*, t.*
+FROM rendeles r, termek t, tetel db
+WHERE r.ido<12 AND t.id=db.termek_id AND db.rendeles_id=r.id
+-- GROUP BY r.id
+
+
+
+
+SELECT t2.ar, t2.nev FROM termek t2
+WHERE t2.ar = (select max(t.ar) from termek t);
+
+értékadással nem olyan szép:
+SET @t := (select MAX(t.ar) from termek t);
+SELECT @t AS ar, t2.nev FROM termek t2 WHERE t2.ar=@t;
+
+
+SELECT DISTINCT t.id 
+FROM termek t
+INNER JOIN tetel ON t.id = tetel.termek_id
+-- WHERE t.id NOT exists (tetel.termek_id)
+-- GROUP BY t.id
+-- HAVING t.id NOT IN (tetel.termek_id)
+
+
+SELECT termek.id from termek EXCEPT (SELECT termek.id FROM termek) INTERSECT (SELECT tetel.termek_id FROM tetel);
